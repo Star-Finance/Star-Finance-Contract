@@ -1,0 +1,37 @@
+{
+  "name": "hardhat-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat clean && hardhat compile",
+    "deploy": "hardhat node",
+    "test": "hardhat test --deploy-fixture",
+    "deploy:bsctest": "hardhat deploy --network bsc_test",
+    "deploy:kovan": "hardhat deploy --network kovan",
+    "verify:bsctest": "hardhat --network bsc_test etherscan-verify",
+    "verify:kovan": "hardhat --network kovan etherscan-verify",
+    "run:script": "hardhat run scripts/dai_funcs.ts --network bsc_test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers@^0.3.0-beta.13",
+    "@nomiclabs/hardhat-etherscan": "^2.1.6",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@typechain/ethers-v5": "^7.0.1",
+    "@typechain/hardhat": "^2.3.0",
+    "@types/mocha": "^9.0.0",
+    "@openzeppelin/contracts": "^4.4.1",
+    "chai": "^4.3.4",
+    "chai-ethers": "^0.0.1",
+    "ethereum-waffle": "^3.4.0",
+    "ethers": "^5.4.6",
+    "hardhat": "^2.6.2",
+    "hardhat-deploy": "^0.10.5",
+    "ts-node": "^10.2.1",
+    "typechain": "^5.1.2",
+    "typescript": "^4.4.2"
+  }
+}
