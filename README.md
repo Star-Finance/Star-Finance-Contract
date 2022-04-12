@@ -2,7 +2,7 @@
 
 ## prepare
 ```
-add local file (secret.json) according to hardhat.config.ts
+add local file (secret.json) according to secret.example.json
 ```
 ## yarn
 ```
