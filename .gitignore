@@ -11,5 +11,5 @@ artifacts
 #Local files
 .DS_Store
 secret.json
-deployments
+deployments/localhost
 .idea
