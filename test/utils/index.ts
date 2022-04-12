@@ -1,6 +1,16 @@
 import {Contract} from 'ethers';
 import {deployments, ethers, getNamedAccounts} from "hardhat";
-import {ExampleToken, StakingRewards, UsdsToken} from "../../typechain";
+import {
+    LaunchPad,
+    Star,
+    StarNFT,
+    StarStakingUSDC,
+    StarStakingUSDT,
+    StarStakingWETH,
+    USDC,
+    USDT,
+    WETH
+} from "../../typechain";
 
 export async function setupUser<T extends { [contractName: string]: Contract }>(
     address: string,
@@ -17,9 +27,15 @@ export async function setupUser<T extends { [contractName: string]: Contract }>(
 export const setup = deployments.createFixture(async () => {
     await deployments.fixture();
     const contracts = {
-        StakingRewards: await ethers.getContract<StakingRewards>('StakingRewards'),
-        ExampleToken: await ethers.getContract<ExampleToken>('ExampleToken'),
-        UsdsToken: await ethers.getContract<UsdsToken>('UsdsToken'),
+        Star: await ethers.getContract<Star>('Star'),
+        StarNFT: await ethers.getContract<StarNFT>('StarNFT'),
+        LaunchPad: await ethers.getContract<LaunchPad>('LaunchPad'),
+        USDC: await ethers.getContract<USDC>('USDC'),
+        USDT: await ethers.getContract<USDT>('USDT'),
+        WETH: await ethers.getContract<WETH>('WETH'),
+        StarStakingUSDC: await ethers.getContract<StarStakingUSDC>('StarStakingUSDC'),
+        StarStakingUSDT: await ethers.getContract<StarStakingUSDT>('StarStakingUSDT'),
+        StarStakingWETH: await ethers.getContract<StarStakingWETH>('StarStakingWETH'),
     };
     const {owner, user1, user2, user3, user4, user5} = await getNamedAccounts();
     return {

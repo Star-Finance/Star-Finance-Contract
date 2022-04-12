@@ -6,34 +6,10 @@ import "@openzeppelin/contracts/utils/math/Math.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "../interfaces/IStarStaking.sol";
 
-// Inheritance
-interface IStakingRewards {
-    // Views
-    function lastTimeRewardApplicable() external view returns (uint256);
 
-    function rewardPerToken() external view returns (uint256);
-
-    function earned(address account) external view returns (uint256);
-
-    function getRewardForDuration() external view returns (uint256);
-
-    function totalSupply() external view returns (uint256);
-
-    function balanceOf(address account) external view returns (uint256);
-
-    // Mutative
-
-    function stake(uint256 amount) external;
-
-    function withdraw(uint256 amount) external;
-
-    function getReward() external;
-
-    function exit() external;
-}
-
-contract StakingRewards is IStakingRewards, ReentrancyGuard {
+contract StarStakingUSDC is IStarStaking, ReentrancyGuard {
 
    using SafeMath for uint256;
    using SafeERC20 for IERC20;
@@ -44,7 +20,7 @@ contract StakingRewards is IStakingRewards, ReentrancyGuard {
     IERC20 public stakingToken;
     uint256 public periodFinish = 0;
     uint256 public rewardRate = 0;
-    uint256 public rewardsDuration = 60 days;
+    uint256 public rewardsDuration = 365 days;
     uint256 public lastUpdateTime;
     uint256 public rewardPerTokenStored;
 

@@ -3,7 +3,6 @@ import "@nomiclabs/hardhat-waffle";
 import '@nomiclabs/hardhat-ethers';
 import 'hardhat-deploy';
 import '@typechain/hardhat';
-// import {HardhatUserConfig} from 'hardhat/types';
 import "@nomiclabs/hardhat-etherscan";
 
 const secret = require("./secret.json");
@@ -59,23 +58,16 @@ const config: any = {
         user5: 5
     },
     networks: {
+        rinkeby: {
+            url: secret.url_rinkeby,
+            accounts: [secret.key],
+            timeout: 120000
+        },
         bsc_test: {
             url: secret.url_bsc_testnet,
             accounts: [secret.key],
             timeout: 120000
-        },
-        kovan: {
-            url: secret.url_kovan,
-            accounts: [secret.key],
-            timeout: 120000
-        },
-        // hardhat: {
-        //     forking: {
-        //         url: secret.url_fork,
-        //         blockNumber: 14182860,
-        //         enabled: false
-        //     }
-        // },
+        }
     },
     // "apiKey":"AICEVSFV489I64KNVISIJNAAAYKHPBMBC1",  BSC-CHAIN
     etherscan: {
