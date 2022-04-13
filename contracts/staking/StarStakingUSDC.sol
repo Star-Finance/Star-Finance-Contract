@@ -7,17 +7,19 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "../interfaces/IStarStaking.sol";
+import "../interfaces/IOracle.sol";
 
 
 contract StarStakingUSDC is IStarStaking, ReentrancyGuard {
 
-   using SafeMath for uint256;
-   using SafeERC20 for IERC20;
+    using SafeMath for uint256;
+    using SafeERC20 for IERC20;
 
     /* ========== STATE VARIABLES ========== */
 
     IERC20 public rewardsToken;
     IERC20 public stakingToken;
+    address public oracle;
     uint256 public periodFinish = 0;
     uint256 public rewardRate = 0;
     uint256 public rewardsDuration = 365 days;
@@ -34,7 +36,7 @@ contract StarStakingUSDC is IStarStaking, ReentrancyGuard {
 
     modifier onlyRewardsDistribution() {
         require(msg.sender == rewardsDistribution, "Caller is not RewardsDistribution contract");
-    _;
+        _;
     }
 
     /* ========== CONSTRUCTOR ========== */
@@ -42,11 +44,13 @@ contract StarStakingUSDC is IStarStaking, ReentrancyGuard {
     constructor(
         address _rewardsDistribution,
         address _rewardsToken,
-        address _stakingToken
+        address _stakingToken,
+        address _oracle
     ) {
         rewardsToken = IERC20(_rewardsToken);
         stakingToken = IERC20(_stakingToken);
         rewardsDistribution = _rewardsDistribution;
+        oracle = _oracle;
     }
 
     /* ========== VIEWS ========== */
@@ -68,9 +72,9 @@ contract StarStakingUSDC is IStarStaking, ReentrancyGuard {
             return rewardPerTokenStored;
         }
         return
-            rewardPerTokenStored.add(
-                lastTimeRewardApplicable().sub(lastUpdateTime).mul(rewardRate).mul(1e18).div(_totalSupply)
-            );
+        rewardPerTokenStored.add(
+            lastTimeRewardApplicable().sub(lastUpdateTime).mul(rewardRate).mul(1e18).div(_totalSupply)
+        );
     }
 
     function earned(address account) public view override returns (uint256) {
@@ -123,6 +127,15 @@ contract StarStakingUSDC is IStarStaking, ReentrancyGuard {
     function exit() override external {
         withdraw(_balances[msg.sender]);
         getReward();
+    }
+
+    function apr() public view returns (uint256){
+
+        if (_totalSupply == 0 || rewardRate == 0)
+            return 999999;
+
+        return rewardRate * 365 days * IOracle(oracle).starPrice() * 1e8 / _totalSupply 
+        / IOracle(oracle).tokenPrice(address(stakingToken));
     }
 
     /* ========== RESTRICTED FUNCTIONS ========== */

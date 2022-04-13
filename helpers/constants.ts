@@ -23,3 +23,15 @@ export const LAUNCH_TOTAL = parseEther("50000000");
 export const APPROVE_AMOUNT = parseEther("9999999999999");
 export const STAKE_AMOUNT = parseEther("300");
 export const STAKE_AMOUNT_WETH = parseEther("1");
+
+// Contracts
+export const UNISWAP_ROUTER_RINKEBY = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D";
+export const CHAIN_LINK_ETH_RINKEBY = "0x8A753747A1Fa494EC906cE90E9f37563A8AF630e";
+export const CHAIN_LINK_USDC_RINKEBY = "0xa24de01df22b63d23Ebc1882a5E3d4ec0d907bFB";
+
+// Liquidity
+export const LIQUIDITY_STAR = parseEther("10000");
+export const LIQUIDITY_USDC = parseEther("60000");
+
+// Chain ids
+export const CHAIN_ID_LOCAL = "31337";

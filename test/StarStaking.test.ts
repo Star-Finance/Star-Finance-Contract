@@ -2,6 +2,7 @@ import {setup} from "./utils";
 import {APPROVE_AMOUNT, FAUCET_AMOUNT, FAUCET_AMOUNT_WETH, STAKE_AMOUNT, STAKE_AMOUNT_WETH} from "../helpers/constants";
 import {expect} from "chai";
 import {forwardTime} from "../helpers";
+import {parseEther} from "ethers/lib/utils";
 
 describe("Faucet", async () => {
 
@@ -13,6 +14,9 @@ describe("Faucet", async () => {
         await user1.StarStakingUSDC.stake(STAKE_AMOUNT);
         expect(await user1.StarStakingUSDC.balanceOf(user1.address)).to.eq(STAKE_AMOUNT);
         expect(await user1.StarStakingUSDC.totalSupply()).to.eq(STAKE_AMOUNT);
+
+        const apr = await user1.StarStakingUSDC.apr();
+        expect(apr).to.gt(199e8);
         
         await forwardTime(600);
         await user1.StarStakingUSDC.exit();
@@ -29,6 +33,9 @@ describe("Faucet", async () => {
         expect(await user1.StarStakingUSDT.balanceOf(user1.address)).to.eq(STAKE_AMOUNT);
         expect(await user1.StarStakingUSDT.totalSupply()).to.eq(STAKE_AMOUNT);
 
+        const apr = await user1.StarStakingUSDT.apr();
+        expect(apr).to.gt(199e8);
+        
         await forwardTime(600);
         await user1.StarStakingUSDT.exit();
         expect(await user1.USDT.balanceOf(user1.address)).to.eq(FAUCET_AMOUNT);
@@ -43,6 +50,9 @@ describe("Faucet", async () => {
         await user1.StarStakingWETH.stake(STAKE_AMOUNT_WETH);
         expect(await user1.StarStakingWETH.balanceOf(user1.address)).to.eq(STAKE_AMOUNT_WETH);
         expect(await user1.StarStakingWETH.totalSupply()).to.eq(STAKE_AMOUNT_WETH);
+
+        const apr = await user1.StarStakingWETH.apr();
+        expect(apr).to.gt(199e8);
 
         await forwardTime(600);
         await user1.StarStakingWETH.exit();

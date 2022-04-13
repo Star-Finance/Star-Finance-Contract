@@ -46,6 +46,15 @@ const config: any = {
                     },
                 },
                 evmVersion: 'istanbul'
+            },
+            {
+                version: "0.4.18",
+                settings: {
+                    optimizer: {
+                        enabled: true,
+                        runs: 100000
+                    }
+                }
             }
         ],
     },

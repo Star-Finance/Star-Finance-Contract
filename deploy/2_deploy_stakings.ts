@@ -1,6 +1,5 @@
-import {parseEther} from 'ethers/lib/utils';
 import {DeployFunction} from 'hardhat-deploy/types';
-import {PRE_MINT_AMOUNT_STAR, REWARD_AMOUNT, REWARD_AMOUNT_WETH} from "../helpers/constants";
+import {CHAIN_ID_LOCAL, REWARD_AMOUNT, REWARD_AMOUNT_WETH, UNISWAP_ROUTER_RINKEBY} from "../helpers/constants";
 import {WETH} from "../typechain";
 
 const func: DeployFunction = async function ({deployments, getNamedAccounts, network, getChainId}) {
@@ -10,6 +9,14 @@ const func: DeployFunction = async function ({deployments, getNamedAccounts, net
 
     console.log("=== Deploying: stakings ===");
 
+    let Oracle;
+
+    const chainId = await getChainId();
+    if (chainId == CHAIN_ID_LOCAL)
+        Oracle = await get("MockOracle");
+    else
+        Oracle = await get("Oracle");
+    
     const Star = await get("Star");
     const USDC = await get("USDC");
     const USDT = await get("USDT");
@@ -17,19 +24,19 @@ const func: DeployFunction = async function ({deployments, getNamedAccounts, net
 
     const StarStakingUSDC = await deploy('StarStakingUSDC', {
         from: owner,
-        args: [owner, Star.address, USDC.address],
+        args: [owner, Star.address, USDC.address, Oracle.address],
         log: true,
     });
 
     const StarStakingUSDT = await deploy('StarStakingUSDT', {
         from: owner,
-        args: [owner, Star.address, USDT.address],
+        args: [owner, Star.address, USDT.address, Oracle.address],
         log: true,
     });
 
     const StarStakingWETH = await deploy('StarStakingWETH', {
         from: owner,
-        args: [owner, Star.address, WETH.address],
+        args: [owner, Star.address, WETH.address, Oracle.address],
         log: true,
     });
 
@@ -42,7 +49,7 @@ const func: DeployFunction = async function ({deployments, getNamedAccounts, net
 
     await execute("Star", {from: owner}, "transfer", StarStakingWETH.address, REWARD_AMOUNT_WETH);
     await execute("StarStakingWETH", {from: owner}, "notifyRewardAmount", REWARD_AMOUNT_WETH);
-    
+
 };
 export default func;
 func.dependencies = []

@@ -1,7 +1,7 @@
 import {Contract} from 'ethers';
 import {deployments, ethers, getNamedAccounts} from "hardhat";
 import {
-    LaunchPad,
+    LaunchPad, MockOracle,
     Star,
     StarNFT,
     StarStakingUSDC,
@@ -36,6 +36,7 @@ export const setup = deployments.createFixture(async () => {
         StarStakingUSDC: await ethers.getContract<StarStakingUSDC>('StarStakingUSDC'),
         StarStakingUSDT: await ethers.getContract<StarStakingUSDT>('StarStakingUSDT'),
         StarStakingWETH: await ethers.getContract<StarStakingWETH>('StarStakingWETH'),
+        Oracle: await ethers.getContract<MockOracle>('MockOracle'),
     };
     const {owner, user1, user2, user3, user4, user5} = await getNamedAccounts();
     return {

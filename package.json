@@ -32,6 +32,9 @@
     "hardhat-deploy": "^0.10.5",
     "ts-node": "^10.2.1",
     "typechain": "^5.1.2",
-    "typescript": "^4.4.2"
+    "typescript": "^4.4.2",
+    "@uniswap/lib": "1.1.1",
+    "@uniswap/v2-periphery": "^1.1.0-beta.0",
+    "@chainlink/contracts": "^0.3.0"
   }
 }
