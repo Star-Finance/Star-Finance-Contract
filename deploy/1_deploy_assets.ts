@@ -83,16 +83,16 @@ const func: DeployFunction = async function ({deployments, getNamedAccounts, net
         });
 
         router = await ethers.getContractAt("UniswapV2Router", UNISWAP_ROUTER_RINKEBY);
-        await execute("Oracle", {from: owner}, "setPriceFeed", USDC.address, CHAIN_LINK_USDC_RINKEBY);
-        await execute("Oracle", {from: owner}, "setPriceFeed", USDT.address, CHAIN_LINK_USDC_RINKEBY);
-        await execute("Oracle", {from: owner}, "setPriceFeed", WETH.address, CHAIN_LINK_ETH_RINKEBY);
+        // await execute("Oracle", {from: owner}, "setPriceFeed", USDC.address, CHAIN_LINK_USDC_RINKEBY);
+        // await execute("Oracle", {from: owner}, "setPriceFeed", USDT.address, CHAIN_LINK_USDC_RINKEBY);
+        // await execute("Oracle", {from: owner}, "setPriceFeed", WETH.address, CHAIN_LINK_ETH_RINKEBY);
     }
 
-    await execute("Star", {from: owner}, "approve", router.address, APPROVE_AMOUNT);
-    await execute("USDC", {from: owner}, "approve", router.address, APPROVE_AMOUNT);
+    // await execute("Star", {from: owner}, "approve", router.address, APPROVE_AMOUNT);
+    // await execute("USDC", {from: owner}, "approve", router.address, APPROVE_AMOUNT);
 
-    await router.addLiquidity(Star.address, USDC.address, LIQUIDITY_STAR, LIQUIDITY_USDC,
-        LIQUIDITY_STAR, LIQUIDITY_USDC, owner, getCurrentTimestamp() + 120);
+    // await router.addLiquidity(Star.address, USDC.address, LIQUIDITY_STAR, LIQUIDITY_USDC,
+    //     LIQUIDITY_STAR, LIQUIDITY_USDC, owner, getCurrentTimestamp() + 120);
 
     await deploy('StarNFT', {
         from: owner,
