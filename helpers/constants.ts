@@ -13,7 +13,7 @@ export const REWARD_AMOUNT = parseEther("100000");
 export const REWARD_AMOUNT_WETH = parseEther("30000000");
 
 // NFT
-export const BASE_URI = "ipfs://Qmf2vtTYGDJpdniM5qKVoXNjcUZEPnuZHkpkKmiQdCW1fv/";
+export const BASE_URI = "ipfs://QmTgDrYmRNdZkV5AXPtQBJeV5mmMN5La3ubtsbQD4CiCBy/";
 export const MINT_COST = parseEther("0.0001")
 
 // Launch
